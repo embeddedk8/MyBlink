@@ -1,0 +1,65 @@
+name: Wokwi Simulation
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      firmware-path: ${{ steps.build.outputs.firmware_path }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+        with:
+          version: "1.3.1"
+
+      - name: Setup Arduino CLI
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+
+      - name: Compile Sketch (arduino:avr:uno for Wokwi)
+        id: build
+        run: |
+          make release FQBN=arduino:avr:uno
+          echo "firmware_path=./build/release/MyBlink.ino.hex" >> $GITHUB_OUTPUT
+
+      - name: Upload firmware artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: |
+            ./build/release/MyBlink.ino.hex
+            ./build/release/MyBlink.ino.elf
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download firmware artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: firmware
+          path: ./build/release
+
+      - name: Test with Wokwi
+        uses: wokwi/wokwi-ci-action@v1
+        with:
+          token: ${{ secrets.WOKWI_CLI_TOKEN }}
+          path: ./ # directory with wokwi.toml, relative to repo's root
+          expect_text: Success
+          timeout: 30000

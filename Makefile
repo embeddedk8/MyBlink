@@ -1,5 +1,5 @@
 # FQBN for your board (change if needed)
-FQBN := arduino:renesas_uno:unor4wifi
+FQBN ?= arduino:avr:uno
 
 # Serial port (change if needed)
 PORT := /dev/ttyACM0
