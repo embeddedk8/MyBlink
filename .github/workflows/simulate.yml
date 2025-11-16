@@ -30,6 +30,9 @@ jobs:
         run: |
           make release
 
-      - name: Run Wokwi Simulation (30 seconds)
-        run: |
-          npx --yes @wokwi/cli --timeout 30s --elf build/release/MyBlink.ino.elf
+      - name: Test with Wokwi
+        uses: wokwi/wokwi-ci-action@v1
+        with:
+          token: ${{ secrets.WOKWI_CLI_TOKEN }}
+          path: / # directory with wokwi.toml, relative to repo's root
+          expect_text: 'Hello, world!' # optional
