@@ -26,21 +26,16 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:renesas_uno
 
-      - name: Compile Sketch
+      - name: Compile Sketch (arduino:avr:uno for wokwi support)
         run: |
-          make release
+          make release FQBN=arduino:avr:uno
 
       - name: Test with Wokwi
         uses: wokwi/wokwi-ci-action@v1
         with:
           token: ${{ secrets.WOKWI_CLI_TOKEN }}
           path: / # directory with wokwi.toml, relative to repo's root
-          #expect_text: 'Hello World!' # optional
+          expect_text: 'Hello World!' # optional
           timeout: 10000
-          serial_log_file: "output.txt"
 
-      - name: Print output
-        if: always()
-        run : |
-          cat output.txt
 

@@ -1,14 +1,8 @@
 {
   "version": 1,
-  "author": "generated",
+  "author": "Anonymous maker",
   "editor": "wokwi",
-  "parts": [
-    {
-      "type": "wokwi-arduino-uno",
-      "id": "uno",
-      "top": 100,
-      "left": 100
-    }
-  ],
-  "connections": []
+  "parts": [ { "id": "uno", "type": "wokwi-arduino-uno" } ],
+  "connections": [],
+  "serialMonitor": { "display": "always" }
 }
