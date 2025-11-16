@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "author": "generated",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-arduino-uno-r4-wifi",
+      "id": "uno",
+      "top": 100,
+      "left": 100
+    },
+    {
+      "type": "led",
+      "id": "led1",
+      "top": 200,
+      "left": 100,
+      "color": "red"
+    },
+    {
+      "type": "button",
+      "id": "btn1",
+      "top": 200,
+      "left": 200
+    }
+  ],
+  "connections": [
+    {
+      "from": "uno:13",
+      "to": "led1:anode"
+    },
+    {
+      "from": "led1:cathode",
+      "to": "uno:GND"
+    },
+    {
+      "from": "uno:2",
+      "to": "btn1:left"
+    },
+    {
+      "from": "btn1:right",
+      "to": "uno:GND"
+    }
+  ]
+}

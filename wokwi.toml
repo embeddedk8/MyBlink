@@ -1,2 +1,3 @@
 [wokwi]
-board = "arduino-uno"
+board = "arduino-uno-r4-wifi"
+elf = "build/release/MyBlink.ino.elf"
