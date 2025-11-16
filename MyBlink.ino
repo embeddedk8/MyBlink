@@ -2,18 +2,24 @@
 #define BLINK_FREQUENCY 1000
 #endif
 
+void print_success() {
+  static bool done = false;
+  if (!done) {
+    Serial.println("Success");
+    done = true;
+  }
+}
+
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
- // pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600);
 }
 
 void loop() {
-  //digitalWrite(LED_BUILTIN, HIGH);      // turn the LED on (HIGH is the voltage level)
-  //delay(BLINK_FREQUENCY);               // wait for a BLINK_FREQUENCY ms
-  //digitalWrite(LED_BUILTIN, LOW);       // turn the LED off by making the voltage LOW
-//  delay(BLINK_FREQUENCY);               // wait for a BLINK_FREQUENCY ms
-  Serial.print("Hello World!");
-    Serial.flush();
-    delay(200);
+  digitalWrite(LED_BUILTIN, HIGH);      // turn the LED on (HIGH is the voltage level)
+  delay(BLINK_FREQUENCY);               // wait for a BLINK_FREQUENCY ms
+  digitalWrite(LED_BUILTIN, LOW);       // turn the LED off by making the voltage LOW
+  delay(BLINK_FREQUENCY);               // wait for a BLINK_FREQUENCY ms
+  print_success();
 }
