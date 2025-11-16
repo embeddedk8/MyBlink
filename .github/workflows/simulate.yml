@@ -35,4 +35,5 @@ jobs:
         with:
           token: ${{ secrets.WOKWI_CLI_TOKEN }}
           path: / # directory with wokwi.toml, relative to repo's root
-          expect_text: 'Hello, world!' # optional
+          expect_text: 'Hello World!' # optional
+
