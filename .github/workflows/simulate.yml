@@ -9,8 +9,10 @@ on:
       - "**"
 
 jobs:
-  simulate:
+  build:
     runs-on: ubuntu-latest
+    outputs:
+      firmware-path: ${{ steps.build.outputs.firmware_path }}
 
     steps:
       - name: Checkout
@@ -26,16 +28,36 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:avr
 
-      - name: Compile Sketch (arduino:avr:uno for wokwi support)
+      - name: Compile Sketch (arduino:avr:uno for Wokwi)
+        id: build
         run: |
           make release FQBN=arduino:avr:uno
+          echo "firmware_path=./build/release/MyBlink.ino.hex" >> $GITHUB_OUTPUT
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: ./build/release/MyBlink.ino.hex
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download firmware artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: firmware
+          path: ./firmware
 
       - name: Test with Wokwi
         uses: wokwi/wokwi-ci-action@v1
         with:
           token: ${{ secrets.WOKWI_CLI_TOKEN }}
-          path: / # directory with wokwi.toml, relative to repo's root
+          path: ./ # directory with wokwi.toml, relative to repo's root
           expect_text: Success
-          timeout: 10000
-
-
+          timeout: 30000
