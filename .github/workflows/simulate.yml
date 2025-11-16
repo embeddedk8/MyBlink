@@ -37,4 +37,9 @@ jobs:
           path: / # directory with wokwi.toml, relative to repo's root
           expect_text: 'Hello World!' # optional
           timeout: 10000
+          serial-log-file: "output.txt"
+
+      - name: Print output
+        run : |
+          cat output.txt
 
