@@ -2,3 +2,4 @@
 version = 1
 board = "arduino-uno"
 elf = "build/release/MyBlink.ino.elf"
+firmware = "build/release/MyBlink.ino.hex"
