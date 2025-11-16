@@ -26,18 +26,10 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:renesas_uno
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install Wokwi CLI
-        run: npm install -g @wokwi/cli
-
       - name: Compile Sketch
         run: |
           make release
 
       - name: Run Wokwi Simulation (30 seconds)
         run: |
-          wokwi-cli --timeout 30s --elf build/release/MyBlink.ino.elf
+          npx --yes @wokwi/cli --timeout 30s --elf build/release/MyBlink.ino.elf
