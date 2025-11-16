@@ -52,7 +52,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: firmware
-          path: ./firmware
+          path: ./build/release
 
       - name: Test with Wokwi
         uses: wokwi/wokwi-ci-action@v1
