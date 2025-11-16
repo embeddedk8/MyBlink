@@ -1,0 +1,39 @@
+name: Wokwi Simulation
+
+on:
+  push: "**"
+  pull_request: "**"
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+        with:
+          version: "1.3.1"
+
+      - name: Setup Arduino CLI
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:renesas_uno
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Wokwi CLI
+        run: npm install -g @wokwi/cli
+
+      - name: Compile Sketch
+        run: |
+          make release
+
+      - name: Run Wokwi Simulation (30 seconds)
+        run: |
+          wokwi-cli --timeout 30s --elf build/release/MyBlink.ino.elf
