@@ -24,7 +24,7 @@ jobs:
       - name: Setup Arduino CLI
         run: |
           arduino-cli core update-index
-          arduino-cli core install arduino:renesas_uno
+          arduino-cli core install arduino:avr
 
       - name: Compile Sketch (arduino:avr:uno for wokwi support)
         run: |
