@@ -34,11 +34,13 @@ jobs:
           make release FQBN=arduino:avr:uno
           echo "firmware_path=./build/release/MyBlink.ino.hex" >> $GITHUB_OUTPUT
 
-      - name: Upload firmware artifact
+      - name: Upload firmware artifacts
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: ./build/release/MyBlink.ino.hex
+          path: |
+            ./build/release/MyBlink.ino.hex
+            ./build/release/MyBlink.ino.elf
 
   test:
     runs-on: ubuntu-latest
