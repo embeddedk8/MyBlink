@@ -4,14 +4,7 @@
 
 ---
 
-## 🎯 Who is this project for?
-
-MyBlink is ideal for beginners who want to learn:
-- Automating Arduino development,
-- Setting up continuous integration (CI) for embedded projects,
-- Running local and cloud-based Arduino simulations.
-
-## 💡 What does MyBlink teach?
+## 💡 What does MyBlink show?
 
 - How to **simulate Arduino projects without physical hardware** using [Wokwi](https://wokwi.com/)
 - How to **integrate Wokwi simulation with GitHub Actions** for automated builds and tests
