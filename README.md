@@ -40,4 +40,4 @@ make upload-debug
 ```
 
 For a step-by-step guide on setting up CI/CD for Arduino projects with Wokwi, check out my blog:  
-[Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation](https://www.embeddedk8.com/arduino-github-actions-with-wokwi/)
+[Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation](https://kasia0x01.github.io/posts/2025/arduino-github-actions-with-wokwi/)
